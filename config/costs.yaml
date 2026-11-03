@@ -1,0 +1,24 @@
+# Cost models for a $10k weekly ETF book.
+# Spread is charged once per trade on traded notional (half-spread).
+# Slippage is extra, same convention. Expense ratios are already in adj close.
+
+slippage_bps: 2.0
+
+brokers:
+  robinhood:
+    label: Robinhood
+    commission_per_share: 0.0
+    commission_min: 0.0
+    notes: Commission-free US ETFs. Fractional shares.
+
+  ibkr_lite:
+    label: IBKR Lite
+    commission_per_share: 0.0
+    commission_min: 0.0
+    notes: Commission-free US ETFs. Use until futures are added.
+
+  ibkr_pro:
+    label: IBKR Pro
+    commission_per_share: 0.005
+    commission_min: 1.0
+    notes: "$0.005/share, $1 minimum per order. Dominates a $10k weekly book without inertia."

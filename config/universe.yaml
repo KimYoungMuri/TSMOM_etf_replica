@@ -1,0 +1,123 @@
+# Single source of truth for the v1 slow trend-following universe.
+# Research tickers maximize history; live tickers are the lower-fee holds.
+# Splice tickers are used ONLY when data.mode == research_splice.
+
+capital: 10000
+
+asset_class_budgets:
+  equity: 0.25
+  bonds: 0.25
+  commodities: 0.25
+  fx: 0.25
+
+risk_assets:
+  - id: us_equity
+    name: US large cap
+    asset_class: equity
+    research_ticker: SPY
+    live_ticker: VTI
+    inception: 1993-01-22
+    live_inception: 2001-05-24
+    half_spread_bps: 1.0
+    splice_ticker: "^GSPC"
+    notes: S&P 500 futures proxy. SPY for history, VTI live for the lower fee.
+
+  - id: developed_ex_us
+    name: Developed ex-US
+    asset_class: equity
+    research_ticker: EFA
+    live_ticker: IEFA
+    inception: 2001-08-14
+    live_inception: 2012-10-18
+    half_spread_bps: 2.0
+    splice_ticker: EFA
+    notes: EAFE basket (DAX/FTSE/TOPIX proxy). EFA for history, IEFA live.
+
+  - id: emerging
+    name: Emerging markets
+    asset_class: equity
+    research_ticker: EEM
+    live_ticker: IEMG
+    inception: 2003-04-11
+    live_inception: 2012-10-18
+    half_spread_bps: 3.0
+    splice_ticker: EEM
+    notes: The equity sleeve that actually diversifies vs SPY.
+
+  - id: intermediate_treasury
+    name: Intermediate Treasuries
+    asset_class: bonds
+    research_ticker: IEF
+    live_ticker: IEF
+    inception: 2002-07-22
+    live_inception: 2002-07-22
+    half_spread_bps: 1.0
+    splice_ticker: VFITX
+    notes: 7-10y Treasuries, closest liquid ETF to 10y bond futures.
+
+  - id: long_treasury
+    name: Long Treasuries
+    asset_class: bonds
+    research_ticker: TLT
+    live_ticker: TLT
+    inception: 2002-07-22
+    live_inception: 2002-07-22
+    half_spread_bps: 1.0
+    splice_ticker: VUSTX
+    notes: Long duration. Bond trends show up here.
+
+  - id: gold
+    name: Gold
+    asset_class: commodities
+    research_ticker: GLD
+    live_ticker: GLD
+    inception: 2004-11-18
+    live_inception: 2004-11-18
+    half_spread_bps: 1.0
+    splice_ticker: "GC=F"
+    notes: Treated as its own market in the TSMOM literature.
+
+  - id: broad_commodities
+    name: Broad commodities
+    asset_class: commodities
+    research_ticker: DBC
+    live_ticker: PDBC
+    inception: 2006-02-03
+    live_inception: 2014-11-07
+    half_spread_bps: 5.0
+    splice_ticker: GSG
+    notes: Energy/ags/industrial metals. DBC for history, PDBC live. Embeds roll yield.
+
+  - id: usd
+    name: US dollar
+    asset_class: fx
+    research_ticker: UUP
+    live_ticker: UUP
+    inception: 2007-02-20
+    live_inception: 2007-02-20
+    half_spread_bps: 4.0
+    splice_ticker: "DX-Y.NYB"
+    notes: DXY proxy. One FX sleeve; do not add FXE/FXY on top.
+
+cash:
+  id: cash
+  name: T-bills
+  research_ticker: BIL
+  live_ticker: SGOV
+  inception: 2007-05-30
+  live_inception: 2020-05-26
+  half_spread_bps: 1.0
+  splice_ticker: "^IRX"
+  notes: Flat names go here. Not a trend instrument. BIL for history, SGOV live.
+
+exclusions:
+  - QQQ
+  - IWM
+  - VNQ
+  - FXE
+  - FXY
+  - IBIT
+  - USO
+  - UNG
+  - sector ETFs
+  - leveraged and inverse ETFs

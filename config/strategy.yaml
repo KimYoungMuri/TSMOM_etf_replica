@@ -1,0 +1,20 @@
+# One slow rule. No per-asset fitting. No parameter search.
+
+signal: tsmom_12m
+lookback_days: 252
+sma_days: 210
+fast_ma_days: 50
+slow_ma_days: 200
+
+vol_center_of_mass_days: 60
+vol_target: 0.10
+gross_cap: 1.0
+
+rebalance: weekly
+execution: next_close
+inertia_l1: 0.10
+inertia_asset: 0.02
+
+# research = ETF prices only, common start when all research tickers exist.
+# research_splice = index/mutual-fund proxies before ETF inception. Not tradeable.
+data_mode: research

@@ -1,0 +1,30 @@
+[project]
+name = "trend-following"
+version = "0.1.0"
+description = "Slow long/cash trend following on a liquid cross-asset ETF universe."
+requires-python = ">=3.11"
+dependencies = [
+  "pandas>=2.2",
+  "numpy>=1.26",
+  "yfinance>=0.2.40",
+  "pyyaml>=6.0",
+  "matplotlib>=3.8",
+  "pyarrow>=15.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+trend = "trend.cli:main"
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
